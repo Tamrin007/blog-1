@@ -4,20 +4,22 @@
   <meta charset="utf-8">
   
   
-  <title>Japan Azure IaaS Support Blog リニューアルのお知らせ | Japan Azure IaaS Support Blog</title>
+  <title>Microsoft ピアリングを経由するかどうかの確認方法 | Japan Azure IaaS Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="こんにちは、Azure IaaS Support チームです。 本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。">
-<meta name="keywords" content="Information">
+  <meta name="description" content="こんにちは、Azure サポートチームの山崎です。今回は対象の通信が Microsoft ピアリングを経由するかどうかの確認方法についてご紹介します。 Microsoft ピアリングで広報される経路についてExpressRoute の Microsoft ピアリングをご利用の場合、ルートフィルターの設定でどのような経路を広報するかを設定します。 (ルートフィルターの設定画面 - Azure ポータ">
+<meta name="keywords" content="Network,ExpressRoute">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Japan Azure IaaS Support Blog リニューアルのお知らせ">
-<meta property="og:url" content="https://jpaztech.github.io/information/test/index.html">
+<meta property="og:title" content="Microsoft ピアリングを経由するかどうかの確認方法">
+<meta property="og:url" content="https://jpaztech.github.io/network/judge-via-ms-peering/index.html">
 <meta property="og:site_name" content="Japan Azure IaaS Support Blog">
-<meta property="og:description" content="こんにちは、Azure IaaS Support チームです。 本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。">
+<meta property="og:description" content="こんにちは、Azure サポートチームの山崎です。今回は対象の通信が Microsoft ピアリングを経由するかどうかの確認方法についてご紹介します。 Microsoft ピアリングで広報される経路についてExpressRoute の Microsoft ピアリングをご利用の場合、ルートフィルターの設定でどのような経路を広報するかを設定します。 (ルートフィルターの設定画面 - Azure ポータ">
 <meta property="og:locale" content="ja">
-<meta property="og:updated_time" content="2019-11-26T12:39:50.000Z">
+<meta property="og:image" content="https://jpaztech.github.io/blog/network/judge-via-ms-peering/judge-via-ms-peering-01.png">
+<meta property="og:updated_time" content="2019-11-26T13:26:34.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Japan Azure IaaS Support Blog リニューアルのお知らせ">
-<meta name="twitter:description" content="こんにちは、Azure IaaS Support チームです。 本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。">
+<meta name="twitter:title" content="Microsoft ピアリングを経由するかどうかの確認方法">
+<meta name="twitter:description" content="こんにちは、Azure サポートチームの山崎です。今回は対象の通信が Microsoft ピアリングを経由するかどうかの確認方法についてご紹介します。 Microsoft ピアリングで広報される経路についてExpressRoute の Microsoft ピアリングをご利用の場合、ルートフィルターの設定でどのような経路を広報するかを設定します。 (ルートフィルターの設定画面 - Azure ポータ">
+<meta name="twitter:image" content="https://jpaztech.github.io/blog/network/judge-via-ms-peering/judge-via-ms-peering-01.png">
   
     <link rel="alternate" href="../../blog/atom.xml" title="Japan Azure IaaS Support Blog" type="application/atom+xml">
   
@@ -71,7 +73,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-information/test" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-network/judge-via-ms-peering" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     
@@ -80,7 +82,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Japan Azure IaaS Support Blog リニューアルのお知らせ
+      Microsoft ピアリングを経由するかどうかの確認方法
     </h1>
   
 
@@ -88,29 +90,48 @@
       <div class="article-share">
         Last Update: 
         <a href class="article-date-single">
-  <time datetime="2019-09-13T09:29:20.000Z" itemprop="datePublished">2019-09-13</time>
+  <time datetime="2019-11-26T08:30:00.000Z" itemprop="datePublished">2019-11-26</time>
 </a>
         
         
-        <a href="https://github.com/jpaztech/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+74dc5e93-ae1e-573d-954f-c84698b72fd4%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BJapan+Azure+IaaS+Support+Blog+%E3%83%AA%E3%83%8B%E3%83%A5%E3%83%BC%E3%82%A2%E3%83%AB%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B%5D%28https%3A%2F%2Fjpaztech.github.io%2Fblog%2Finformation%2Ftest%2F%29%0A*+Content+Source%3A+%5Barticles%2Finformation%2Ftest.md%5D%28https%3A%2F%2Fgithub.com%2Fjpaztech%2Fblog%2Fblob%2Fmaster%2Farticles%2Finformation%2Ftest.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        <a href="https://github.com/jpaztech/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+f290dedc-f2c7-5a09-98ff-b6e8b842f939%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BMicrosoft+%E3%83%94%E3%82%A2%E3%83%AA%E3%83%B3%E3%82%B0%E3%82%92%E7%B5%8C%E7%94%B1%E3%81%99%E3%82%8B%E3%81%8B%E3%81%A9%E3%81%86%E3%81%8B%E3%81%AE%E7%A2%BA%E8%AA%8D%E6%96%B9%E6%B3%95%5D%28https%3A%2F%2Fjpaztech.github.io%2Fblog%2Fnetwork%2Fjudge-via-ms-peering%2F%29%0A*+Content+Source%3A+%5Barticles%2Fnetwork%2Fjudge-via-ms-peering.md%5D%28https%3A%2F%2Fgithub.com%2Fjpaztech%2Fblog%2Fblob%2Fmaster%2Farticles%2Fnetwork%2Fjudge-via-ms-peering.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpaztech.github.io/information/test/" data-id="ck3fwc79o0000u6ta53cm9roq" class="article-share-link">共有</a>
+        <a data-url="https://jpaztech.github.io/network/judge-via-ms-peering/" data-id="ck3fwc7c9000pu6ta80iya77z" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>こんにちは、Azure IaaS Support チームです。</p>
-<p><font color="gray">本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</font></p>
+        <p>こんにちは、Azure サポートチームの山崎です。<br>今回は対象の通信が Microsoft ピアリングを経由するかどうかの確認方法についてご紹介します。</p>
+<h2 id="Microsoft-ピアリングで広報される経路について"><a href="#Microsoft-ピアリングで広報される経路について" class="headerlink" title="Microsoft ピアリングで広報される経路について"></a>Microsoft ピアリングで広報される経路について</h2><p>ExpressRoute の Microsoft ピアリングをご利用の場合、ルートフィルターの設定でどのような経路を広報するかを設定します。</p>
+<p><strong>(ルートフィルターの設定画面 - Azure ポータル)</strong></p>
+<img src="/blog/network/judge-via-ms-peering/judge-via-ms-peering-01.png"> 
+
+
+<p><strong>(実行コマンド)</strong><br>各サービスコミュニティで広報される経路については以下の PowerShell コマンドからご確認いただけます。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-AzBgpServiceCommunity</span><br></pre></td></tr></table></figure>
+
+<p><strong>(出力例)</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">Name           : Exchange</span><br><span class="line">Id             : /subscriptions//resourceGroups//providers/Microsoft.Network/bgpServiceCommunities/Exchange</span><br><span class="line">Type           : Microsoft.Network/bgpServiceCommunities</span><br><span class="line">BgpCommunities : [</span><br><span class="line">                   &#123;</span><br><span class="line">                     &quot;ServiceSupportedRegion&quot;: &quot;Global&quot;,</span><br><span class="line">                     &quot;CommunityName&quot;: &quot;Exchange&quot;,</span><br><span class="line">                     &quot;CommunityValue&quot;: &quot;12076:5010&quot;,</span><br><span class="line">                     &quot;CommunityPrefixes&quot;: [</span><br><span class="line">                       &quot;13.107.6.152/31&quot;,</span><br><span class="line">                       &quot;13.107.18.10/31&quot;,</span><br><span class="line">                       &quot;13.107.128.0/22&quot;,</span><br><span class="line">                       &quot;23.103.160.0/20&quot;,</span><br><span class="line">                       &quot;40.92.0.0/15&quot;,</span><br><span class="line">                       &quot;40.96.0.0/13&quot;,</span><br><span class="line">                       &quot;40.104.0.0/15&quot;,</span><br><span class="line">                       &quot;40.107.0.0/16&quot;,</span><br><span class="line">                       &quot;52.96.0.0/14&quot;,</span><br><span class="line">                       &quot;52.100.0.0/14&quot;,</span><br><span class="line">                       &quot;52.238.78.88/32&quot;,</span><br><span class="line">                       &quot;104.47.0.0/17&quot;,</span><br><span class="line">                       &quot;131.253.33.215/32&quot;,</span><br><span class="line">                       &quot;132.245.0.0/16&quot;,</span><br><span class="line">                       &quot;150.171.32.0/22&quot;,</span><br><span class="line">                       &quot;191.234.140.0/22&quot;,</span><br><span class="line">                       &quot;204.79.197.215/32&quot;,</span><br><span class="line">                       &quot;13.107.128.0/24&quot;,</span><br><span class="line">                       &quot;13.107.129.0/24&quot;,</span><br><span class="line">                       &quot;150.171.32.0/24&quot;,</span><br><span class="line">                       &quot;150.171.34.0/24&quot;,</span><br><span class="line">                       &quot;150.171.35.0/24&quot;,</span><br><span class="line">                       &quot;52.96.38.0/24&quot;</span><br><span class="line">                     ],</span><br><span class="line">                     &quot;IsAuthorizedToUse&quot;: false,</span><br><span class="line">                     &quot;ServiceGroup&quot;: &quot;O365&quot;</span><br><span class="line">                   &#125;</span><br><span class="line">                 ]</span><br><span class="line"></span><br><span class="line">Name           : OtherOffice365Services</span><br><span class="line">Id             : /subscriptions//resourceGroups//providers/Microsoft.Network/bgpServiceCommunities/OtherOffice365Servic</span><br><span class="line">                 es</span><br><span class="line">Type           : Microsoft.Network/bgpServiceCommunities</span><br><span class="line">BgpCommunities : [</span><br><span class="line">                   &#123;</span><br><span class="line">                     &quot;ServiceSupportedRegion&quot;: &quot;Global&quot;,</span><br><span class="line">                     &quot;CommunityName&quot;: &quot;Other Office 365 Services&quot;,</span><br><span class="line">                     &quot;CommunityValue&quot;: &quot;12076:5100&quot;,</span><br><span class="line">                     &quot;CommunityPrefixes&quot;: [</span><br><span class="line">                       &quot;13.80.125.22/32&quot;,</span><br><span class="line">                       &quot;13.91.91.243/32&quot;,</span><br><span class="line">                       &quot;13.106.4.128/25&quot;,</span><br><span class="line">                       (... 省略)</span><br></pre></td></tr></table></figure>
+
+<h2 id="宛先が-FQDN-の場合"><a href="#宛先が-FQDN-の場合" class="headerlink" title="宛先が FQDN の場合"></a>宛先が FQDN の場合</h2><p>通信対象が IP の場合、上記の手順で IP をご確認いただくことで対象のサービスコミュニティが確認可能で、ルートフィルターの設定状況により Microsoft ピアリングを経由するかどうかを確認することが可能です。また、各サービス毎に以下ようなドキュメントでも ExpressRoute の対応状況について記載がされています。</p>
+<p>  [Office 365 の URL と IP アドレスの範囲]<br>  <a href="https://docs.microsoft.com/ja-jp/office365/enterprise/urls-and-ip-address-ranges" target="_blank" rel="noopener">https://docs.microsoft.com/ja-jp/office365/enterprise/urls-and-ip-address-ranges</a></p>
+<p>  [Azure ExpressRoute と Azure Site Recovery]<br>  <a href="https://docs.microsoft.com/ja-jp/azure/site-recovery/concepts-expressroute-with-site-recovery" target="_blank" rel="noopener">https://docs.microsoft.com/ja-jp/azure/site-recovery/concepts-expressroute-with-site-recovery</a></p>
+<p>ドキュメントに記載がなく、対象が FQDN の場合には個別に調査が必要となります。Microsoft ピアリング観点としては IP を特定いただくことで経由、非経由が判断出来ますため、調査としては対象の FQDN に紐づく IP 情報についてご確認いただく必要がございます。</p>
+<blockquote>
+<p>対象の FQDN に紐づく IP アドレスの調査については FQDN が利用されるサービス毎に調査が必要となりますので、ご利用サービス宛てにお問い合わせをお願いします。</p>
+</blockquote>
+<p>対象の FQDN によっては IP が固定でわかる場合もあれば、情報公開されておらず不定の場合もあります。IP が明確に特定できないような場合には Internet 経由で通信できるようネットワークを構成いただければ幸いです。</p>
+<p>以上、ご参考になれば幸いです。</p>
 
       
     </div>
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Information/">Information</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/ExpressRoute/">ExpressRoute</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Network/">Network</a></li></ul>
 
         
-        <a href="https://github.com/jpaztech/blog/edit/master/articles/information/test.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        <a href="https://github.com/jpaztech/blog/edit/master/articles/network/judge-via-ms-peering.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
         
     </footer>
   </div>
@@ -118,19 +139,10 @@
     
 <nav id="article-nav">
   
-    <a href="../../other/azure_technical_support_explained/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">次の記事</strong>
-      <div class="article-nav-title">
-        
-          Azure IaaS における有償 Azure テクニカル サポートの対応範囲
-        
-      </div>
-    </a>
   
-  
-    <a href="../../archive/application-gateway-waf-vulnerability-detection/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../../other/azure_technical_support_explained/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">Application Gateway (WAF) での脆弱性検知について</div>
+      <div class="article-nav-title">Azure IaaS における有償 Azure テクニカル サポートの対応範囲</div>
     </a>
   
 </nav>
@@ -149,7 +161,7 @@
       <ul>
         
           <li>
-            <a href="../../network/judge-via-ms-peering/">Microsoft ピアリングを経由するかどうかの確認方法</a>
+            <a href>Microsoft ピアリングを経由するかどうかの確認方法</a>
           </li>
         
           <li>
@@ -157,7 +169,7 @@
           </li>
         
           <li>
-            <a href>Japan Azure IaaS Support Blog リニューアルのお知らせ</a>
+            <a href="../../information/test/">Japan Azure IaaS Support Blog リニューアルのお知らせ</a>
           </li>
         
           <li>

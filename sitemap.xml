@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jpaztech.github.io/network/judge-via-ms-peering/</loc>
+    
+    <lastmod>2019-11-26T13:26:34.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jpaztech.github.io/information/test/</loc>
+    
+    <lastmod>2019-11-26T12:39:50.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jpaztech.github.io/archive/about-application-gateway/</loc>
     
     <lastmod>2019-11-26T12:39:50.000Z</lastmod>
@@ -16,13 +30,6 @@
   </url>
   
   <url>
-    <loc>https://jpaztech.github.io/archive/applicationgaetway-waf-01/</loc>
-    
-    <lastmod>2019-11-26T12:39:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://jpaztech.github.io/archive/application-gateway-waf-vulnerability-detection/</loc>
     
     <lastmod>2019-11-26T12:39:50.000Z</lastmod>
@@ -31,6 +38,13 @@
   
   <url>
     <loc>https://jpaztech.github.io/archive/azure-powershell-3-8-0-install/</loc>
+    
+    <lastmod>2019-11-26T12:39:50.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jpaztech.github.io/archive/applicationgaetway-waf-01/</loc>
     
     <lastmod>2019-11-26T12:39:50.000Z</lastmod>
     
@@ -108,13 +122,6 @@
   
   <url>
     <loc>https://jpaztech.github.io/archive/upgrade-backup-container-asm2arm/</loc>
-    
-    <lastmod>2019-11-26T12:39:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jpaztech.github.io/information/test/</loc>
     
     <lastmod>2019-11-26T12:39:50.000Z</lastmod>
     
