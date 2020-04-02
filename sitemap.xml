@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jpaztech.github.io/vm/resource-delete/</loc>
+    
+    <lastmod>2020-04-02T05:52:21.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jpaztech.github.io/vm/resource-health-alert/</loc>
+    
+    <lastmod>2020-04-02T05:38:07.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jpaztech.github.io/network/judge-via-ms-peering/</loc>
     
     <lastmod>2019-12-15T14:44:40.000Z</lastmod>
