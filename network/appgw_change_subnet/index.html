@@ -4,22 +4,20 @@
   <meta charset="utf-8">
   
   
-  <title>Microsoft ピアリングを経由するかどうかの確認方法 | Japan Azure IaaS Core Support Blog</title>
+  <title>Application Gateway でサブネットを変更する方法 | Japan Azure IaaS Core Support Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="こんにちは、Azure サポートチームの山崎です。今回は対象の通信が Microsoft ピアリングを経由するかどうかの確認方法についてご紹介します。 Microsoft ピアリングで広報される経路についてExpressRoute の Microsoft ピアリングをご利用の場合、ルートフィルターの設定でどのような経路を広報するかを設定します。 (ルートフィルターの設定画面 - Azure ポータ">
-<meta name="keywords" content="Network,ExpressRoute">
+  <meta name="description" content="こんにちは、Azure サポートチームの薄井です。今回は Application Gateway V1 および V2 でサブネットを変更する方法についてご紹介します。 残念ながら現在の Azure ポータルからは、すでにデプロイした Application Gateway のサブネットを後から変更することはできません。サブネットを変更する必要性が生じたら、新しく Application Gatew">
+<meta name="keywords" content="Network,ApplicationGateway">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Microsoft ピアリングを経由するかどうかの確認方法">
-<meta property="og:url" content="https://jpaztech.github.io/network/judge-via-ms-peering/index.html">
+<meta property="og:title" content="Application Gateway でサブネットを変更する方法">
+<meta property="og:url" content="https://jpaztech.github.io/network/appgw_change_subnet/index.html">
 <meta property="og:site_name" content="Japan Azure IaaS Core Support Blog">
-<meta property="og:description" content="こんにちは、Azure サポートチームの山崎です。今回は対象の通信が Microsoft ピアリングを経由するかどうかの確認方法についてご紹介します。 Microsoft ピアリングで広報される経路についてExpressRoute の Microsoft ピアリングをご利用の場合、ルートフィルターの設定でどのような経路を広報するかを設定します。 (ルートフィルターの設定画面 - Azure ポータ">
+<meta property="og:description" content="こんにちは、Azure サポートチームの薄井です。今回は Application Gateway V1 および V2 でサブネットを変更する方法についてご紹介します。 残念ながら現在の Azure ポータルからは、すでにデプロイした Application Gateway のサブネットを後から変更することはできません。サブネットを変更する必要性が生じたら、新しく Application Gatew">
 <meta property="og:locale" content="ja">
-<meta property="og:image" content="https://jpaztech.github.io/blog/network/judge-via-ms-peering/judge-via-ms-peering-01.png">
-<meta property="og:updated_time" content="2019-12-15T14:44:40.000Z">
+<meta property="og:updated_time" content="2020-04-21T09:03:59.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Microsoft ピアリングを経由するかどうかの確認方法">
-<meta name="twitter:description" content="こんにちは、Azure サポートチームの山崎です。今回は対象の通信が Microsoft ピアリングを経由するかどうかの確認方法についてご紹介します。 Microsoft ピアリングで広報される経路についてExpressRoute の Microsoft ピアリングをご利用の場合、ルートフィルターの設定でどのような経路を広報するかを設定します。 (ルートフィルターの設定画面 - Azure ポータ">
-<meta name="twitter:image" content="https://jpaztech.github.io/blog/network/judge-via-ms-peering/judge-via-ms-peering-01.png">
+<meta name="twitter:title" content="Application Gateway でサブネットを変更する方法">
+<meta name="twitter:description" content="こんにちは、Azure サポートチームの薄井です。今回は Application Gateway V1 および V2 でサブネットを変更する方法についてご紹介します。 残念ながら現在の Azure ポータルからは、すでにデプロイした Application Gateway のサブネットを後から変更することはできません。サブネットを変更する必要性が生じたら、新しく Application Gatew">
   
     <link rel="alternate" href="../../blog/atom.xml" title="Japan Azure IaaS Core Support Blog" type="application/atom+xml">
   
@@ -79,7 +77,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-network/judge-via-ms-peering" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-network/appgw_change_subnet" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     
@@ -88,7 +86,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Microsoft ピアリングを経由するかどうかの確認方法
+      Application Gateway でサブネットを変更する方法
     </h1>
   
 
@@ -96,48 +94,74 @@
       <div class="article-share">
         Last Update: 
         <a href class="article-date-single">
-  <time datetime="2019-11-26T08:30:00.000Z" itemprop="datePublished">2019-11-26</time>
+  <time datetime="2020-04-21T05:30:00.000Z" itemprop="datePublished">2020-04-21</time>
 </a>
         
         
-        <a href="https://github.com/jpaztech/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+f290dedc-f2c7-5a09-98ff-b6e8b842f939%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BMicrosoft+%E3%83%94%E3%82%A2%E3%83%AA%E3%83%B3%E3%82%B0%E3%82%92%E7%B5%8C%E7%94%B1%E3%81%99%E3%82%8B%E3%81%8B%E3%81%A9%E3%81%86%E3%81%8B%E3%81%AE%E7%A2%BA%E8%AA%8D%E6%96%B9%E6%B3%95%5D%28https%3A%2F%2Fjpaztech.github.io%2Fblog%2Fnetwork%2Fjudge-via-ms-peering%2F%29%0A*+Content+Source%3A+%5Barticles%2Fnetwork%2Fjudge-via-ms-peering.md%5D%28https%3A%2F%2Fgithub.com%2Fjpaztech%2Fblog%2Fblob%2Fmaster%2Farticles%2Fnetwork%2Fjudge-via-ms-peering.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        <a href="https://github.com/jpaztech/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+5c5e1d76-dedb-5d6e-9f2e-38b475e57aa2%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BApplication+Gateway+%E3%81%A7%E3%82%B5%E3%83%96%E3%83%8D%E3%83%83%E3%83%88%E3%82%92%E5%A4%89%E6%9B%B4%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95%5D%28https%3A%2F%2Fjpaztech.github.io%2Fblog%2Fnetwork%2Fappgw_change_subnet%2F%29%0A*+Content+Source%3A+%5Barticles%2Fnetwork%2Fappgw_change_subnet.md%5D%28https%3A%2F%2Fgithub.com%2Fjpaztech%2Fblog%2Fblob%2Fmaster%2Farticles%2Fnetwork%2Fappgw_change_subnet.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpaztech.github.io/network/judge-via-ms-peering/" data-id="ck99onqkp000s7iirgibfg2sm" class="article-share-link">共有</a>
+        <a data-url="https://jpaztech.github.io/network/appgw_change_subnet/" data-id="ck99onqkn000p7iirrmhuki6g" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>こんにちは、Azure サポートチームの山崎です。<br>今回は対象の通信が Microsoft ピアリングを経由するかどうかの確認方法についてご紹介します。</p>
-<h2 id="Microsoft-ピアリングで広報される経路について"><a href="#Microsoft-ピアリングで広報される経路について" class="headerlink" title="Microsoft ピアリングで広報される経路について"></a>Microsoft ピアリングで広報される経路について</h2><p>ExpressRoute の Microsoft ピアリングをご利用の場合、ルートフィルターの設定でどのような経路を広報するかを設定します。</p>
-<p><strong>(ルートフィルターの設定画面 - Azure ポータル)</strong></p>
-<img src="/blog/network/judge-via-ms-peering/judge-via-ms-peering-01.png"> 
+        <p>こんにちは、Azure サポートチームの薄井です。<br>今回は Application Gateway V1 および V2 でサブネットを変更する方法についてご紹介します。</p>
+<p>残念ながら現在の Azure ポータルからは、すでにデプロイした Application Gateway のサブネットを後から変更することはできません。<br>サブネットを変更する必要性が生じたら、新しく Application Gateway を作り直すしかありません。</p>
+<p>しかし Azure PowerShell を使うことで、 Application Gateway を作り直すことなく、既存のサブネットの設定を変更することができます。</p>
+<h2 id="サブネット変更方法"><a href="#サブネット変更方法" class="headerlink" title="サブネット変更方法"></a>サブネット変更方法</h2><p>※ 弊社検証環境でも動作の確認を行っておりますが念のため、お客様環境におかれましても事前に検証環境で動作をご確認のうえ本番環境への適用をお願いいたします。</p>
+<p>※ Application Gateway のフロントエンド IP 構成において、プライベート IP アドレスが固定で設定されている場合は、プライベート IP アドレスと関連するリスナー設定等を削除しておく必要があります。</p>
+<hr>
+<ol>
+<li><p>あらかじめ同一 VNET 内に変更先の新しいサブネットを作成しておきます。</p>
+</li>
+<li><p>Azure PowerShell または ポータルより Cloud Shell を起動し、以下のコマンドレットを入力します。（&lt;&gt;の部分は環境に合わせて変更が必要となります）</p>
+</li>
+<li><p>構成を変更する対象のサブスクリプションを指定します。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Select-AzSubscription -SubscriptionId &lt;サブスクリプション ID&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>構成を変更する対象の仮想ネットワークを指定します。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$VNet</span> = Get-AzVirtualNetwork -Name &lt;対象の仮想ネットワーク&gt; -ResourceGroupName &lt;変更対象のリソースグループ&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>変更先のサブネットを取得します。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$Subnet</span> = Get-AzVirtualNetworkSubnetConfig -Name &lt;変更先のサブネット名&gt; -VirtualNetwork <span class="variable">$VNet</span></span><br></pre></td></tr></table></figure>
 
 
-<p><strong>(実行コマンド)</strong><br>各サービスコミュニティで広報される経路については以下の PowerShell コマンドからご確認いただけます。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-AzBgpServiceCommunity</span><br></pre></td></tr></table></figure>
-
-<p><strong>(出力例)</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">Name           : Exchange</span><br><span class="line">Id             : /subscriptions//resourceGroups//providers/Microsoft.Network/bgpServiceCommunities/Exchange</span><br><span class="line">Type           : Microsoft.Network/bgpServiceCommunities</span><br><span class="line">BgpCommunities : [</span><br><span class="line">                   &#123;</span><br><span class="line">                     &quot;ServiceSupportedRegion&quot;: &quot;Global&quot;,</span><br><span class="line">                     &quot;CommunityName&quot;: &quot;Exchange&quot;,</span><br><span class="line">                     &quot;CommunityValue&quot;: &quot;12076:5010&quot;,</span><br><span class="line">                     &quot;CommunityPrefixes&quot;: [</span><br><span class="line">                       &quot;13.107.6.152/31&quot;,</span><br><span class="line">                       &quot;13.107.18.10/31&quot;,</span><br><span class="line">                       &quot;13.107.128.0/22&quot;,</span><br><span class="line">                       &quot;23.103.160.0/20&quot;,</span><br><span class="line">                       &quot;40.92.0.0/15&quot;,</span><br><span class="line">                       &quot;40.96.0.0/13&quot;,</span><br><span class="line">                       &quot;40.104.0.0/15&quot;,</span><br><span class="line">                       &quot;40.107.0.0/16&quot;,</span><br><span class="line">                       &quot;52.96.0.0/14&quot;,</span><br><span class="line">                       &quot;52.100.0.0/14&quot;,</span><br><span class="line">                       &quot;52.238.78.88/32&quot;,</span><br><span class="line">                       &quot;104.47.0.0/17&quot;,</span><br><span class="line">                       &quot;131.253.33.215/32&quot;,</span><br><span class="line">                       &quot;132.245.0.0/16&quot;,</span><br><span class="line">                       &quot;150.171.32.0/22&quot;,</span><br><span class="line">                       &quot;191.234.140.0/22&quot;,</span><br><span class="line">                       &quot;204.79.197.215/32&quot;,</span><br><span class="line">                       &quot;13.107.128.0/24&quot;,</span><br><span class="line">                       &quot;13.107.129.0/24&quot;,</span><br><span class="line">                       &quot;150.171.32.0/24&quot;,</span><br><span class="line">                       &quot;150.171.34.0/24&quot;,</span><br><span class="line">                       &quot;150.171.35.0/24&quot;,</span><br><span class="line">                       &quot;52.96.38.0/24&quot;</span><br><span class="line">                     ],</span><br><span class="line">                     &quot;IsAuthorizedToUse&quot;: false,</span><br><span class="line">                     &quot;ServiceGroup&quot;: &quot;O365&quot;</span><br><span class="line">                   &#125;</span><br><span class="line">                 ]</span><br><span class="line"></span><br><span class="line">Name           : OtherOffice365Services</span><br><span class="line">Id             : /subscriptions//resourceGroups//providers/Microsoft.Network/bgpServiceCommunities/OtherOffice365Servic</span><br><span class="line">                 es</span><br><span class="line">Type           : Microsoft.Network/bgpServiceCommunities</span><br><span class="line">BgpCommunities : [</span><br><span class="line">                   &#123;</span><br><span class="line">                     &quot;ServiceSupportedRegion&quot;: &quot;Global&quot;,</span><br><span class="line">                     &quot;CommunityName&quot;: &quot;Other Office 365 Services&quot;,</span><br><span class="line">                     &quot;CommunityValue&quot;: &quot;12076:5100&quot;,</span><br><span class="line">                     &quot;CommunityPrefixes&quot;: [</span><br><span class="line">                       &quot;13.80.125.22/32&quot;,</span><br><span class="line">                       &quot;13.91.91.243/32&quot;,</span><br><span class="line">                       &quot;13.106.4.128/25&quot;,</span><br><span class="line">                       (... 省略)</span><br></pre></td></tr></table></figure>
-
-<h2 id="宛先が-FQDN-の場合"><a href="#宛先が-FQDN-の場合" class="headerlink" title="宛先が FQDN の場合"></a>宛先が FQDN の場合</h2><p>通信対象が IP の場合、上記の手順で IP をご確認いただくことで対象のサービスコミュニティが確認可能で、ルートフィルターの設定状況により Microsoft ピアリングを経由するかどうかを確認することが可能です。また、各サービス毎に以下のようなドキュメントでも ExpressRoute の対応状況について記載がされています。</p>
-<p>  [Office 365 の URL と IP アドレスの範囲]<br>  <a href="https://docs.microsoft.com/ja-jp/office365/enterprise/urls-and-ip-address-ranges" target="_blank" rel="noopener">https://docs.microsoft.com/ja-jp/office365/enterprise/urls-and-ip-address-ranges</a></p>
-<p>  [Azure ExpressRoute と Azure Site Recovery]<br>  <a href="https://docs.microsoft.com/ja-jp/azure/site-recovery/concepts-expressroute-with-site-recovery" target="_blank" rel="noopener">https://docs.microsoft.com/ja-jp/azure/site-recovery/concepts-expressroute-with-site-recovery</a></p>
-<p>ドキュメントに記載がなく、対象が FQDN の場合には個別に調査が必要となります。Microsoft ピアリング観点としては IP を特定いただくことで経由、非経由が判断出来ますため、調査としては対象の FQDN に紐づく IP 情報についてご確認いただく必要がございます。</p>
-<blockquote>
-<p>対象の FQDN に紐づく IP アドレスの調査については FQDN が利用されるサービス毎に調査が必要となりますので、ご利用サービス宛てにお問い合わせをお願いします。</p>
-</blockquote>
-<p>対象の FQDN によっては IP が固定でわかる場合もあれば、情報公開されておらず不定の場合もあります。IP が明確に特定できないような場合には Internet 経由で通信できるようネットワークを構成いただければ幸いです。</p>
+</li>
+</ol>
+<ol start="4">
+<li><p>変更対象の Application Gateway を取得します。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$gw</span>=Get-AzApplicationGateway -name &lt;変更対象の Application Gateway 名&gt; -ResourceGroupName &lt;変更対象のリソースグループ&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>サブネットの変更を加えます。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$gw2</span>=Set-AzApplicationGatewayIPConfiguration -ApplicationGateway <span class="variable">$gw</span> -Name <span class="string">"appGatewayIpConfig"</span> -Subnet <span class="variable">$Subnet</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>稼働中の Application Gateway を停止します。※ 停止に数分かかります</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Stop-AzApplicationGateway -ApplicationGateway <span class="variable">$gw</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Application Gatewayを設定、開始します。※ 開始に 10 分以上かかります</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-AzApplicationGateway -ApplicationGateway <span class="variable">$gw2</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>開始後に以前と同様に Web サーバへアクセスできるか確認します。</p>
+</li>
+</ol>
+<hr>
 <p>以上、ご参考になれば幸いです。</p>
+<h2 id="その他の-Application-Gateway-のサブネットに関連する情報"><a href="#その他の-Application-Gateway-のサブネットに関連する情報" class="headerlink" title="その他の Application Gateway のサブネットに関連する情報"></a>その他の Application Gateway のサブネットに関連する情報</h2><p>Application Gateway のサブネットについて関連する情報が以下のページにあります。<br>併せてご参考いただければと思います。</p>
+<ul>
+<li><a href="https://docs.microsoft.com/ja-jp/azure/application-gateway/configuration-overview#size-of-the-subnet" target="_blank" rel="noopener">アプリケーション ゲートウェイ構成の概要 &gt; サブネットのサイズ</a></li>
+<li><a href="https://docs.microsoft.com/ja-jp/azure/application-gateway/configuration-overview#network-security-groups-on-the-application-gateway-subnet" target="_blank" rel="noopener">アプリケーション ゲートウェイ構成の概要 &gt; アプリケーション ゲートウェイ サブネット上のネットワーク セキュリティ グループ</a></li>
+<li><a href="https://docs.microsoft.com/ja-jp/azure/application-gateway/application-gateway-faq" target="_blank" rel="noopener">Application Gateway に関してよく寄せられる質問</a></li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/ExpressRoute/">ExpressRoute</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Network/">Network</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/ApplicationGateway/">ApplicationGateway</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Network/">Network</a></li></ul>
 
         
-        <a href="https://github.com/jpaztech/blog/edit/master/articles/network/judge-via-ms-peering.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        <a href="https://github.com/jpaztech/blog/edit/master/articles/network/appgw_change_subnet.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
         
     </footer>
   </div>
@@ -145,19 +169,10 @@
     
 <nav id="article-nav">
   
-    <a href="../../other/technical_support_engineer_explained/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">次の記事</strong>
-      <div class="article-nav-title">
-        
-          なぜ今サポートエンジニアが熱いか
-        
-      </div>
-    </a>
   
-  
-    <a href="../../other/azure_technical_support_explained/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../../vm/resource-delete/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">Azure IaaS における有償 Azure テクニカル サポートの対応範囲</div>
+      <div class="article-nav-title">Azure リソースの意図しない削除について</div>
     </a>
   
 </nav>
@@ -176,7 +191,7 @@
       <ul>
         
           <li>
-            <a href="../appgw_change_subnet/">Application Gateway でサブネットを変更する方法</a>
+            <a href>Application Gateway でサブネットを変更する方法</a>
           </li>
         
           <li>
@@ -192,7 +207,7 @@
           </li>
         
           <li>
-            <a href>Microsoft ピアリングを経由するかどうかの確認方法</a>
+            <a href="../judge-via-ms-peering/">Microsoft ピアリングを経由するかどうかの確認方法</a>
           </li>
         
       </ul>

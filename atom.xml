@@ -6,7 +6,7 @@
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="https://jpaztech.github.io/"/>
-  <updated>2020-04-02T05:52:21.000Z</updated>
+  <updated>2020-04-21T09:03:59.000Z</updated>
   <id>https://jpaztech.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Application Gateway でサブネットを変更する方法</title>
+    <link href="https://jpaztech.github.io/network/appgw_change_subnet/"/>
+    <id>https://jpaztech.github.io/network/appgw_change_subnet/</id>
+    <published>2020-04-21T05:30:00.000Z</published>
+    <updated>2020-04-21T09:03:59.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>こんにちは、Azure サポートチームの薄井です。<br>今回は Application Gateway V1 および V2 でサブネットを変更する方法についてご紹介します。</p><p>残念ながら現在の Azure ポータルからは、すでにデプロイした Application Gateway のサブネットを後から変更することはできません。<br>サブネットを変更する必要性が生じたら、新しく Application Gateway を作り直すしかありません。</p><p>しかし Azure PowerShell を使うことで、 Application Gateway を作り直すことなく、既存のサブネットの設定を変更することができます。</p><h2 id="サブネット変更方法"><a href="#サブネット変更方法" class="headerlink" title="サブネット変更方法"></a>サブネット変更方法</h2><p>※ 弊社検証環境でも動作の確認を行っておりますが念のため、お客様環境におかれましても事前に検証環境で動作をご確認のうえ本番環境への適用をお願いいたします。</p><p>※ Application Gateway のフロントエンド IP 構成において、プライベート IP アドレスが固定で設定されている場合は、プライベート IP アドレスと関連するリスナー設定等を削除しておく必要があります。</p><hr><ol><li><p>あらかじめ同一 VNET 内に変更先の新しいサブネットを作成しておきます。</p></li><li><p>Azure PowerShell または ポータルより Cloud Shell を起動し、以下のコマンドレットを入力します。（&lt;&gt;の部分は環境に合わせて変更が必要となります）</p></li><li><p>構成を変更する対象のサブスクリプションを指定します。</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Select-AzSubscription -SubscriptionId &lt;サブスクリプション ID&gt;</span><br></pre></td></tr></table></figure></li><li><p>構成を変更する対象の仮想ネットワークを指定します。</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$VNet</span> = Get-AzVirtualNetwork -Name &lt;対象の仮想ネットワーク&gt; -ResourceGroupName &lt;変更対象のリソースグループ&gt;</span><br></pre></td></tr></table></figure></li><li><p>変更先のサブネットを取得します。</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$Subnet</span> = Get-AzVirtualNetworkSubnetConfig -Name &lt;変更先のサブネット名&gt; -VirtualNetwork <span class="variable">$VNet</span></span><br></pre></td></tr></table></figure></li></ol><ol start="4"><li><p>変更対象の Application Gateway を取得します。</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$gw</span>=Get-AzApplicationGateway -name &lt;変更対象の Application Gateway 名&gt; -ResourceGroupName &lt;変更対象のリソースグループ&gt;</span><br></pre></td></tr></table></figure></li><li><p>サブネットの変更を加えます。</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$gw2</span>=Set-AzApplicationGatewayIPConfiguration -ApplicationGateway <span class="variable">$gw</span> -Name <span class="string">"appGatewayIpConfig"</span> -Subnet <span class="variable">$Subnet</span></span><br></pre></td></tr></table></figure></li><li><p>稼働中の Application Gateway を停止します。※ 停止に数分かかります</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Stop-AzApplicationGateway -ApplicationGateway <span class="variable">$gw</span></span><br></pre></td></tr></table></figure></li><li><p>Application Gatewayを設定、開始します。※ 開始に 10 分以上かかります</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-AzApplicationGateway -ApplicationGateway <span class="variable">$gw2</span></span><br></pre></td></tr></table></figure></li><li><p>開始後に以前と同様に Web サーバへアクセスできるか確認します。</p></li></ol><hr><p>以上、ご参考になれば幸いです。</p><h2 id="その他の-Application-Gateway-のサブネットに関連する情報"><a href="#その他の-Application-Gateway-のサブネットに関連する情報" class="headerlink" title="その他の Application Gateway のサブネットに関連する情報"></a>その他の Application Gateway のサブネットに関連する情報</h2><p>Application Gateway のサブネットについて関連する情報が以下のページにあります。<br>併せてご参考いただければと思います。</p><ul><li><a href="https://docs.microsoft.com/ja-jp/azure/application-gateway/configuration-overview#size-of-the-subnet" target="_blank" rel="noopener">アプリケーション ゲートウェイ構成の概要 &gt; サブネットのサイズ</a></li><li><a href="https://docs.microsoft.com/ja-jp/azure/application-gateway/configuration-overview#network-security-groups-on-the-application-gateway-subnet" target="_blank" rel="noopener">アプリケーション ゲートウェイ構成の概要 &gt; アプリケーション ゲートウェイ サブネット上のネットワーク セキュリティ グループ</a></li><li><a href="https://docs.microsoft.com/ja-jp/azure/application-gateway/application-gateway-faq" target="_blank" rel="noopener">Application Gateway に関してよく寄せられる質問</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;こんにちは、Azure サポートチームの薄井です。&lt;br&gt;今回は Application Gateway V1 および V2 でサブネットを変更する方法についてご紹介します。&lt;/p&gt;
+&lt;p&gt;残念ながら現在の Azure ポータルからは、すでにデプロイした Applicati
+      
+    
+    </summary>
+    
+    
+      <category term="Network" scheme="https://jpaztech.github.io/tags/Network/"/>
+    
+      <category term="ApplicationGateway" scheme="https://jpaztech.github.io/tags/ApplicationGateway/"/>
+    
+  </entry>
   
   <entry>
     <title>Azure リソースの意図しない削除について</title>
@@ -538,33 +564,6 @@ Application Gateway で EV 証明書がサポートされるようになりま�
       <category term="Archive" scheme="https://jpaztech.github.io/tags/Archive/"/>
     
       <category term="PowerShell" scheme="https://jpaztech.github.io/tags/PowerShell/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ARM 環境から ARM 環境への仮想マシンの移行方法</title>
-    <link href="https://jpaztech.github.io/archive/migration_arm_to_arm/"/>
-    <id>https://jpaztech.github.io/archive/migration_arm_to_arm/</id>
-    <published>2016-11-07T09:42:09.000Z</published>
-    <updated>2019-11-26T12:39:50.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>こんにちは。Azureサポートチームの小久保です。<br>本日は、別のサブスクリプションの環境に仮想ネットワーク、仮想マシンを移行する方法をご紹介します。<br>今回、ご紹介する環境は、Azure リソース マネージャー (以下、ARM) 環境から ARM 環境への移行となっております。</p><h2 id="ご参考"><a href="#ご参考" class="headerlink" title="ご参考"></a>ご参考</h2><p>Azure サービス マネージャー (以下、ASM) 環境から ASM 環境への移行の場合は以下をご確認ください。<br><a href="http://blogs.technet.microsoft.com/jpaztech/2016/07/11/migration_classic_to_classic/" target="_blank" rel="noopener">クラシック環境からクラシック環境への仮想マシンの移行方法</a></p><h2 id="利用する場面"><a href="#利用する場面" class="headerlink" title="利用する場面"></a>利用する場面</h2><ul><li>開発用のサブスクリプションで作成した仮想マシンを本番環境用のサブスクリプションへ移行したい。</li><li>VHD の保存されているストレージ アカウントを移動したい。</li><li>ストレージ アカウントをプレミアム ストレージに変更したい。</li></ul><h2 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h2><ul><li>移行を前提としているため、一般化していない (特殊化状態の) 仮想マシンのシナリオをご紹介します。</li></ul><h2 id="構成と作業の流れ"><a href="#構成と作業の流れ" class="headerlink" title="構成と作業の流れ"></a>構成と作業の流れ</h2><ol><li>仮想マシンの停止</li><li>移行先のサブスクリプションに、ストレージアカウントおよびコンテナーの作成</li><li>移行先のサブスクリプションに、仮想ネットワークの作成</li><li>AzCopyにて、OS ディスク、データディスクの VHDファイルの移行<br>※ データディスクが存在しない場合は、OS ディスクのみ移行します。</li><li>移行した OS ディスクより、仮想マシンの作成</li></ol><img src="/blog/archive/migration_arm_to_arm/Constitution3.png"><h2 id="事前準備"><a href="#事前準備" class="headerlink" title="事前準備"></a>事前準備</h2><p>AzCopy ツールを利用するため、 Microsoft Azure Storage Tools を以下よりダウンロードし、お手元のコンピューターにインストールをお願いします。<br><a href="https://aka.ms/downloadazcopy" target="_blank" rel="noopener">Microsoft Azure Storage Tools</a></p><h2 id="作業手順"><a href="#作業手順" class="headerlink" title="作業手順"></a>作業手順</h2><h3 id="1-新-ポータル-https-portal-azure-com-より、仮想マシンを停止します。"><a href="#1-新-ポータル-https-portal-azure-com-より、仮想マシンを停止します。" class="headerlink" title="1. 新 ポータル (https://portal.azure.com/) より、仮想マシンを停止します。"></a>1. 新 ポータル (<a href="https://portal.azure.com/" target="_blank" rel="noopener">https://portal.azure.com/</a>) より、仮想マシンを停止します。</h3><img src="/blog/archive/migration_arm_to_arm/stopvm.png"><h3 id="2-移行先のサブスクリプションに、ストレージアカウントを作成します。"><a href="#2-移行先のサブスクリプションに、ストレージアカウントを作成します。" class="headerlink" title="2. 移行先のサブスクリプションに、ストレージアカウントを作成します。"></a>2. 移行先のサブスクリプションに、ストレージアカウントを作成します。</h3><p>ストレージ アカウントを選択後、[＋追加] をクリックします。</p><img src="/blog/archive/migration_arm_to_arm/addstorage.png"><p>新規作成するストレージアカウントの情報を入力し、「作成」ボタンをクリックします。<br><span style="color:red;">※ アカウントの種類は汎用を選択します。</span><br>※ サブスクリプションは移行先のサブスクリプションを選択します。</p><img src="/blog/archive/migration_arm_to_arm/addstorageproperty2.png"><h3 id="3-移行先のサブスクリプションに、仮想ネットワークを作成します。"><a href="#3-移行先のサブスクリプションに、仮想ネットワークを作成します。" class="headerlink" title="3. 移行先のサブスクリプションに、仮想ネットワークを作成します。"></a>3. 移行先のサブスクリプションに、仮想ネットワークを作成します。</h3><p>仮想ネットワークを選択後、[＋追加] をクリックします。</p><img src="/blog/archive/migration_arm_to_arm/addvnet.png"><p>新規作成する仮想ネットワークの情報を入力し、「作成」ボタンをクリックします。<br><span style="color:red;">※サブスクリプションは移行先のサブスクリプションを選択します。</span></p><img src="/blog/archive/migration_arm_to_arm/addvnetproperty2.png"><h3 id="4-AzCopy-を利用し、移行先のストレージアカウントへ-VHD-ファイルをコピーします。"><a href="#4-AzCopy-を利用し、移行先のストレージアカウントへ-VHD-ファイルをコピーします。" class="headerlink" title="4. AzCopy を利用し、移行先のストレージアカウントへ VHD ファイルをコピーします。"></a>4. AzCopy を利用し、移行先のストレージアカウントへ VHD ファイルをコピーします。</h3><p>管理者権限にてコマンドプロンプトを起動し、AzCopy のディレクトリに移動し、AzCopy コマンドを実行します。<br><span style="color:red;">※ 同じデータセンター内での VHD ファイルの移動は無償ですが、データセンターを跨いだ VHD ファイルの移動は有償となります為、ご注意ください。</span></p><p>コマンド例：</p><blockquote><p>cd C:\Program Files (x86)\Microsoft SDKs\Azure\AzCopy</p></blockquote><p>コマンド基本構文：</p><blockquote><p>azcopy.exe /source:＜コピー元コンテナーの URL＞ /dest:＜コピー先コンテナーの URL＞ /SourceKey:＜コピー元ストレージ アカウントのアクセス キー＞ /destKey:＜コピー先ストレージ アカウントのアクセス キー＞ /pattern:”＜VHD ファイル名＞.vhd”</p></blockquote><p>※ コンテナーの URL は [ストレージアカウント] ー＞ [概要] ー＞ [BLOB] ー＞ コンテナーの・・・を右クリックし、[プロパティ]よりご確認ください。</p><img src="/blog/archive/migration_arm_to_arm/VHD_URL2.png"><p>※ アクセスキーは [ストレージアカウント] ー＞ [アクセスキー] よりご確認ください。</p><img src="/blog/archive/migration_arm_to_arm/accesskeynew.png"><p>※ VHD ファイル名は、コピー元のファイル名をご指定ください。</p><p>AzCopy の利用方法については、以下の記事もご参照ください。</p><ul><li><a href="https://azure.microsoft.com/ja-jp/documentation/articles/storage-use-azcopy/" target="_blank" rel="noopener">AzCopy コマンド ライン ユーティリティを使用してデータを転送する</a></li><li><a href="http://blogs.technet.com/b/ksasaki/archive/2012/11/09/azcopy-blob.aspx" target="_blank" rel="noopener">azcopy – BLOB へファイルをやったり取ったり</a></li></ul><h3 id="5-仮想マシンを作成します。"><a href="#5-仮想マシンを作成します。" class="headerlink" title="5. 仮想マシンを作成します。"></a>5. 仮想マシンを作成します。</h3><p>コピーした VHD ファイルをもとに、Azure PowerShell を使用して、仮想マシンを作成します。</p><p>特殊化 VHD ファイルから仮想マシンを ARM 環境にデプロイする為の Azure PowerShell は以下ブログにて、公開しております。<br><a href="https://blogs.technet.microsoft.com/jpaztech/2017/05/24/deployfromspecializedvhd-powershell/" target="_blank" rel="noopener">特殊化 VHD ファイルから ARM 環境へ仮想マシンをデプロイする Azure PowerShell</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;こんにちは。Azureサポートチームの小久保です。&lt;br&gt;本日は、別のサブスクリプションの環境に仮想ネットワーク、仮想マシンを移行する方法をご紹介します。&lt;br&gt;今回、ご紹介する環境は、Azure リソース マネージャー (以下、ARM) 環境から ARM 環境への移行とな
-      
-    
-    </summary>
-    
-    
-      <category term="Archive" scheme="https://jpaztech.github.io/tags/Archive/"/>
-    
-      <category term="Migration" scheme="https://jpaztech.github.io/tags/Migration/"/>
-    
-      <category term="ARM" scheme="https://jpaztech.github.io/tags/ARM/"/>
     
   </entry>
   
