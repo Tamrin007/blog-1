@@ -4,7 +4,7 @@
   <url>
     <loc>https://jpaztech.github.io/network/appgw-troubleshooting-cert/</loc>
     
-    <lastmod>2020-05-13T10:11:16.000Z</lastmod>
+    <lastmod>2020-05-14T01:35:26.000Z</lastmod>
     
   </url>
   
@@ -30,6 +30,13 @@
   </url>
   
   <url>
+    <loc>https://jpaztech.github.io/other/technical_support_engineer_explained/</loc>
+    
+    <lastmod>2019-12-15T14:44:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jpaztech.github.io/network/judge-via-ms-peering/</loc>
     
     <lastmod>2019-12-15T14:44:40.000Z</lastmod>
@@ -44,21 +51,14 @@
   </url>
   
   <url>
-    <loc>https://jpaztech.github.io/other/technical_support_engineer_explained/</loc>
-    
-    <lastmod>2019-12-15T14:44:40.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jpaztech.github.io/archive/application-gateway-502-error-info/</loc>
+    <loc>https://jpaztech.github.io/archive/about-application-gateway/</loc>
     
     <lastmod>2019-11-26T12:39:50.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jpaztech.github.io/archive/about-application-gateway/</loc>
+    <loc>https://jpaztech.github.io/archive/application-gateway-502-error-info/</loc>
     
     <lastmod>2019-11-26T12:39:50.000Z</lastmod>
     
@@ -107,14 +107,14 @@
   </url>
   
   <url>
-    <loc>https://jpaztech.github.io/archive/mayupdate_unable-to-rdp/</loc>
+    <loc>https://jpaztech.github.io/archive/migration_arm_to_arm/</loc>
     
     <lastmod>2019-11-26T12:39:50.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jpaztech.github.io/archive/migration_arm_to_arm/</loc>
+    <loc>https://jpaztech.github.io/archive/mayupdate_unable-to-rdp/</loc>
     
     <lastmod>2019-11-26T12:39:50.000Z</lastmod>
     
@@ -142,14 +142,14 @@
   </url>
   
   <url>
-    <loc>https://jpaztech.github.io/archive/restore-vm-by-swap-manageddisk/</loc>
+    <loc>https://jpaztech.github.io/archive/take-time-to-boot-after20171209/</loc>
     
     <lastmod>2019-11-26T12:39:50.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jpaztech.github.io/archive/take-time-to-boot-after20171209/</loc>
+    <loc>https://jpaztech.github.io/archive/restore-vm-by-swap-manageddisk/</loc>
     
     <lastmod>2019-11-26T12:39:50.000Z</lastmod>
     
